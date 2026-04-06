@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recordatorio Urgente de Pago</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f59e0b;
+        }
+
+        .header h1 {
+            color: #f59e0b;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .urgent-badge {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            color: #92400e;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .info-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .value {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .amount {
+            font-size: 32px;
+            color: #f59e0b;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="cid:logo_iages" style="height:60px;width:auto;display:block;margin:0 auto 15px auto;">
+            <h1>⚠️ Recordatorio Urgente</h1>
+            <p style="margin: 10px 0 0 0; color: #6b7280;">IAGES Gestión</p>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <span class="urgent-badge">⏰ VENCE EN 3 DÍAS</span>
+        </div>
+
+        <div style="padding: 20px 0;">
+            <p>Estimado/a <strong>{{ empresa.nombre }}</strong>,</p>
+
+            <p><strong>Le recordamos que tiene una cuota que vence en solo 3 días.</strong></p>
+
+            <div class="info-box">
+                <div class="info-row">
+                    <span class="label">📋 Documento:</span>
+                    <span class="value">{{ documento.nombre_archivo }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">📅 Fecha de vencimiento:</span>
+                    <span class="value" style="color: #f59e0b;">{{ linea.fecha_vencimiento.strftime('%d/%m/%Y')
+                        }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">💶 Importe principal:</span>
+                    <span class="value">€{{ "%.2f"|format(linea.importe_principal) }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">📊 Intereses:</span>
+                    <span class="value">€{{ "%.2f"|format(linea.importe_intereses) }}</span>
+                </div>
+            </div>
+
+            <div class="amount">
+                € {{ "%.2f"|format(linea.importe_total_plazo) }}
+            </div>
+
+            <p style="text-align: center; color: #6b7280; margin: 20px 0;">
+                ¿Ya ha realizado el pago de esta cuota?
+            </p>
+
+            <div class="buttons">
+                <a href="{{ url_pagado }}" class="btn btn-primary">
+                    ✅ Sí, ya pagué
+                </a>
+                <a href="{{ url_pendiente }}" class="btn btn-secondary">
+                    ❌ Aún no pagué
+                </a>
+            </div>
+
+            <p
+                style="font-size: 14px; color: #92400e; background: #fef3c7; padding: 15px; border-radius: 6px; margin-top: 30px;">
+                <strong>Importante:</strong> Para evitar recargos adicionales, por favor realice el pago antes de la
+                fecha de vencimiento.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p style="margin: 5px 0;">
+                Este es un recordatorio automático generado por IAGES
+            </p>
+            <p style="margin: 5px 0;">
+                Si tiene alguna consulta, no dude en contactarnos
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

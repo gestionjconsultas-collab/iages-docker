@@ -1,0 +1,68 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs and Reports
+*.log
+*.txt
+*.json
+!package.json
+!package-lock.json
+!composer.json
+!requirements.txt
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.sql
+
+# Backups and Archive
+_archive/
+_archive
+backups/
+backups
+*.bak
+*.temp
+*.tmp
+*.pdf
+*.sh
+
+# OS
+Thumbs.db
+
+# Project Specific Junk
+notif_diff.txt
+remote_files.txt
+code_files_remote.txt
+code_files_remote_clean.txt
+db_schema.txt
+comparison_report_*.md
+modified_files_only.txt
+
+# Certificados (Private)
+Certificados/
+
+# Agents and Internal Tools
+.agents/
+.gemini/
+.agent/
+_agents/
+_agent/
+brain/
+tmp/

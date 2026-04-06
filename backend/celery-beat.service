@@ -1,0 +1,36 @@
+# /etc/systemd/system/celery-beat.service
+# Systemd service para Celery Beat (tareas programadas)
+
+[Unit]
+Description=Celery Beat para IAGES (Tareas Programadas)
+After=network.target redis.service
+Wants=redis.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/iages/backend
+Environment="PATH=/var/www/iages/venv/bin"
+Environment="FLASK_ENV=production"
+
+# Ejecutar Celery Beat
+ExecStart=/var/www/iages/venv/bin/celery \
+    -A celery_worker.celery \
+    beat \
+    --loglevel=info \
+    --logfile=/var/log/iages/celery-beat.log \
+    --pidfile=/var/run/iages/celery-beat.pid \
+    --schedule=/var/run/iages/celerybeat-schedule
+
+# Restart automático
+Restart=always
+RestartSec=10
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=celery-beat
+
+[Install]
+WantedBy=multi-user.target

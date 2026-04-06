@@ -1,0 +1,46 @@
+# Control de versiones
+.git
+.gitignore
+
+# Entornos virtuales Python
+backend/venv/
+.venv/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Dependencias Node
+frontend/node_modules/
+frontend/portal/node_modules/
+
+# Archivos de entorno (se pasan en docker-compose)
+.env
+.env.*
+!.env.docker.example
+
+# Builds (se construyen en el Dockerfile o montados como volumen)
+# frontend/dist/  ← sí se incluye (pre-buildeado)
+# frontend/portal/dist/ ← sí se incluye
+
+# Archivos de desarrollo y debug
+backend/debug_*.py
+backend/test_*.py
+backend/check_*.py
+backend/fix_*.py
+backend/find_*.py
+backend/inspect_*.py
+backend/scripts/
+*.zip
+*.xlsx
+
+# Logs
+*.log
+logs/
+
+# Storage y uploads (van en volumes Docker)
+backend/storage/
+backend/uploads/
+
+# OS
+.DS_Store
+Thumbs.db

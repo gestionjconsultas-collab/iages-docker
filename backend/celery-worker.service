@@ -1,0 +1,41 @@
+# /etc/systemd/system/celery-worker.service
+# Systemd service para Celery Worker
+
+[Unit]
+Description=Celery Worker para IAGES
+After=network.target redis.service postgresql.service
+Wants=redis.service postgresql.service
+
+[Service]
+Type=forking
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/iages/backend
+Environment="PATH=/var/www/iages/venv/bin"
+Environment="FLASK_ENV=production"
+
+# Ejecutar Celery Worker
+ExecStart=/var/www/iages/venv/bin/celery \
+    -A celery_worker.celery \
+    worker \
+    --loglevel=info \
+    --concurrency=4 \
+    --logfile=/var/log/iages/celery-worker.log \
+    --pidfile=/var/run/iages/celery-worker.pid
+
+# Restart automático
+Restart=always
+RestartSec=10
+KillMode=mixed
+TimeoutStopSec=60
+
+# Límites
+LimitNOFILE=65536
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=celery-worker
+
+[Install]
+WantedBy=multi-user.target

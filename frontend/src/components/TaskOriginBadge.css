@@ -1,0 +1,66 @@
+.task-origin-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.task-origin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.task-origin-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tamaños */
+.task-origin-badge-small {
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+.task-origin-badge-small .task-origin-icon {
+    font-size: 0.875rem;
+}
+
+.task-origin-badge-normal {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.task-origin-badge-normal .task-origin-icon {
+    font-size: 1rem;
+}
+
+.task-origin-badge-large {
+    padding: 0.375rem 1rem;
+    font-size: 1rem;
+}
+
+.task-origin-badge-large .task-origin-icon {
+    font-size: 1.25rem;
+}
+
+/* Elementos internos */
+.task-origin-icon {
+    line-height: 1;
+}
+
+.task-origin-label {
+    font-weight: 500;
+}
+
+.task-creator {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.task-creator strong {
+    color: #374151;
+    font-weight: 600;
+}

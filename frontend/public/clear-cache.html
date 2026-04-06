@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpiar Service Worker y Caché</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .log {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-item {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #667eea;
+            padding-left: 10px;
+        }
+
+        .success {
+            color: #10b981;
+        }
+
+        .info {
+            color: #3b82f6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🧹 Limpiar Service Worker y Caché</h1>
+        <p>Este script eliminará todos los Service Workers y cachés del navegador para resolver el problema de React
+            duplicado.</p>
+
+        <button onclick="limpiarTodo()">🚀 Limpiar y Recargar</button>
+
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        const log = document.getElementById('log');
+
+        function addLog(message, type = 'info') {
+            const item = document.createElement('div');
+            item.className = `log-item ${type}`;
+            item.textContent = message;
+            log.appendChild(item);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        async function limpiarTodo() {
+            addLog('🔄 Iniciando limpieza...', 'info');
+
+            try {
+                // 1. Desregistrar todos los Service Workers
+                addLog('📋 Buscando Service Workers...', 'info');
+                const registrations = await navigator.serviceWorker.getRegistrations();
+
+                if (registrations.length === 0) {
+                    addLog('ℹ️ No se encontraron Service Workers', 'info');
+                } else {
+                    for (const registration of registrations) {
+                        await registration.unregister();
+                        addLog(`✅ SW eliminado: ${registration.scope}`, 'success');
+                    }
+                }
+
+                // 2. Limpiar todas las cachés
+                addLog('📋 Buscando cachés...', 'info');
+                const cacheNames = await caches.keys();
+
+                if (cacheNames.length === 0) {
+                    addLog('ℹ️ No se encontraron cachés', 'info');
+                } else {
+                    for (const cacheName of cacheNames) {
+                        await caches.delete(cacheName);
+                        addLog(`✅ Cache eliminada: ${cacheName}`, 'success');
+                    }
+                }
+
+                addLog('✨ Limpieza completada!', 'success');
+                addLog('🔄 Recargando en 2 segundos...', 'info');
+
+                // 3. Recargar la página
+                setTimeout(() => {
+                    window.location.href = 'http://localhost:3000';
+                }, 2000);
+
+            } catch (error) {
+                addLog(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-ejecutar al cargar
+        addLog('✅ Script cargado. Haz click en el botón para limpiar.', 'info');
+    </script>
+</body>
+
+</html>

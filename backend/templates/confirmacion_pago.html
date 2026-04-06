@@ -1,0 +1,152 @@
+<!-- confirmacion_pago.html -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pago</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #10b981;
+            margin: 20px 0;
+            font-size: 28px;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #6b7280;
+            margin: 20px 0;
+        }
+
+        .details {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .value {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .value.pagado {
+            color: #10b981;
+        }
+
+        .value.pendiente {
+            color: #f59e0b;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% if accion == 'pagado' %}
+        <div class="icon">✅</div>
+        <h1>¡Confirmación Recibida!</h1>
+        <p class="message">
+            Hemos registrado que la cuota ha sido pagada.<br>
+            Gracias por su confirmación.
+        </p>
+        {% elif accion == 'pendiente' %}
+        <div class="icon">📋</div>
+        <h1>Confirmación Registrada</h1>
+        <p class="message">
+            Hemos tomado nota de que el pago aún está pendiente.<br>
+            Le enviaremos recordatorios próximamente.
+        </p>
+        {% else %}
+        <div class="icon">⚠️</div>
+        <h1>Error</h1>
+        <p class="message">
+            {{ mensaje or 'Ha ocurrido un error. Por favor, contacte con soporte.' }}
+        </p>
+        {% endif %}
+
+        {% if linea %}
+        <div class="details">
+            <div class="detail-row">
+                <span class="label">Documento:</span>
+                <span class="value">{{ documento.nombre_archivo }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Empresa:</span>
+                <span class="value">{{ empresa.nombre if empresa else 'N/A' }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Estado:</span>
+                <span class="value {{ 'pagado' if linea.estado == 'pagado' else 'pendiente' }}">
+                    {{ 'PAGADO ✅' if linea.estado == 'pagado' else 'PENDIENTE ⏳' }}
+                </span>
+            </div>
+        </div>
+        {% endif %}
+
+        <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">
+            Puede cerrar esta ventana de forma segura.
+        </p>
+    </div>
+</body>
+
+</html>
