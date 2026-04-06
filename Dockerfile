@@ -23,8 +23,7 @@ COPY backend/ .
 # Copiar el build del frontend principal
 COPY frontend/dist/ ./static/dist/
 
-# Copiar el build del portal del empleado
-COPY frontend/portal/dist/ ./static/portal/
+# El portal del empleado ya está incluido en backend/static/portal/
 
 # Copiar entrypoint
 COPY docker/entrypoint.sh /entrypoint.sh
