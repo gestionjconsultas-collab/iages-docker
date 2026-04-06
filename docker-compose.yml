@@ -44,7 +44,7 @@ services:
     environment:
       CONTAINER_ROLE: backend
       FLASK_ENV: production
-      DATABASE_URL: postgresql://${DB_USER:-iages}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-iages_docker}
+      DATABASE_URI: postgresql://${DB_USER:-iages}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-iages_docker}
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: ${SECRET_KEY}
       TOTP_ENCRYPTION_KEY: ${TOTP_ENCRYPTION_KEY}
@@ -76,7 +76,7 @@ services:
     environment:
       CONTAINER_ROLE: celery
       FLASK_ENV: production
-      DATABASE_URL: postgresql://${DB_USER:-iages}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-iages_docker}
+      DATABASE_URI: postgresql://${DB_USER:-iages}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-iages_docker}
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: ${SECRET_KEY}
       TOTP_ENCRYPTION_KEY: ${TOTP_ENCRYPTION_KEY}

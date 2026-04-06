@@ -7,7 +7,7 @@ echo "🚀 Iniciando IAGES..."
 echo "⏳ Esperando a PostgreSQL..."
 until python -c "
 import psycopg2, os
-psycopg2.connect(os.environ['DATABASE_URL'])
+psycopg2.connect(os.environ.get('DATABASE_URI', os.environ.get('DATABASE_URL')))
 " 2>/dev/null; do
     sleep 1
 done
