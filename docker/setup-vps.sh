@@ -92,10 +92,10 @@ if [[ "$COPY_DB" =~ ^[sS]$ ]]; then
     DB_PASSWORD=$(grep "^DB_PASSWORD=" .env | cut -d= -f2-)
     DB_NAME=${DB_NAME:-iages_docker}
 
-    echo "📦 Exportando BD de producción (iages)..."
+    echo "📦 Exportando BD de producción (iages_production)..."
     DUMP_FILE="/tmp/iages_prod_$(date +%Y%m%d_%H%M%S).sql"
-    pg_dump -U postgres iages > "$DUMP_FILE" 2>/dev/null || \
-    sudo -u postgres pg_dump iages > "$DUMP_FILE"
+    pg_dump -U postgres iages_production > "$DUMP_FILE" 2>/dev/null || \
+    sudo -u postgres pg_dump iages_production > "$DUMP_FILE"
     ok "Dump creado en $DUMP_FILE"
 
     echo "⬆️  Importando al contenedor Docker..."
