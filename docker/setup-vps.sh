@@ -94,8 +94,8 @@ if [[ "$COPY_DB" =~ ^[sS]$ ]]; then
 
     echo "📦 Exportando BD de producción (iages_production)..."
     DUMP_FILE="/tmp/iages_prod_$(date +%Y%m%d_%H%M%S).sql"
-    pg_dump -U postgres iages_production > "$DUMP_FILE" 2>/dev/null || \
-    sudo -u postgres pg_dump iages_production > "$DUMP_FILE"
+    pg_dump -U postgres --no-owner --no-privileges iages_production > "$DUMP_FILE" 2>/dev/null || \
+    sudo -u postgres pg_dump iages_production --no-owner --no-privileges > "$DUMP_FILE"
     ok "Dump creado en $DUMP_FILE"
 
     echo "⬆️  Importando al contenedor Docker..."
