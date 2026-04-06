@@ -42,6 +42,9 @@ backups
 *.tmp
 *.pdf
 *.sh
+!docker/*.sh
+!backend/*.sh
+!backend/deploy.sh
 
 # OS
 Thumbs.db
