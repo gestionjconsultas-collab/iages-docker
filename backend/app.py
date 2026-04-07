@@ -753,10 +753,12 @@ def create_app(config_name='development'):
     from routes_calendario import calendario_bp
     app.register_blueprint(calendario_bp)
     
-    # Registrar blueprint de DEHú España
-    from routes_dehu_espana import dehu_bp
-    app.register_blueprint(dehu_bp)
-    print("✅ Rutas de Calendario Tributario registradas")
+    # Registrar blueprint de DEHú España (Sustituido por SyncManager/Conecta)
+    # from routes_dehu_espana import dehu_bp
+    # app.register_blueprint(dehu_bp)
+    from routes_dehu_sync import dehu_sync_bp
+    app.register_blueprint(dehu_sync_bp)
+    print("✅ Rutas de DEHú Sync registradas")
     
     # Registrar rutas de Desktop App (Conecta)
     from routes_desktop_app import desktop_app_bp
