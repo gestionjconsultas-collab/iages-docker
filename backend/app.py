@@ -756,8 +756,9 @@ def create_app(config_name='development'):
     # Registrar blueprint de DEHú España (Sustituido por SyncManager/Conecta)
     # from routes_dehu_espana import dehu_bp
     # app.register_blueprint(dehu_bp)
-    # dehu_sync_bp ya se registra al final de este archivo (línea ~8283)
-    print("✅ Rutas de DEHú Sync (vía SyncManager) habilitadas")
+    from routes_dehu_sync import dehu_sync_bp
+    app.register_blueprint(dehu_sync_bp)
+    print("✅ Rutas de DEHú Sync habilitadas")
     
     # Registrar rutas de Desktop App (Conecta)
     from routes_desktop_app import desktop_app_bp
@@ -8277,9 +8278,7 @@ from routes_portal_empleado import register_portal_empleado_routes
 register_portal_empleado_routes(app)
 print("✅ Rutas del Portal del Empleado registradas")
 
-# ⭐ Rutas de Sincronización Externa DEHú
-from routes_dehu_sync import dehu_sync_bp
-app.register_blueprint(dehu_sync_bp)
+# ⭐ Rutas de Sincronización Externa DEHú - REGISTRADAS ARRIBA (línea ~760)
 
 # ⭐ Servir el frontend del Portal del Empleado (build estático)
 _PORTAL_STATIC = os.path.join(basedir, 'static', 'portal')
