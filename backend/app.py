@@ -756,9 +756,8 @@ def create_app(config_name='development'):
     # Registrar blueprint de DEHú España (Sustituido por SyncManager/Conecta)
     # from routes_dehu_espana import dehu_bp
     # app.register_blueprint(dehu_bp)
-    from routes_dehu_sync import dehu_sync_bp
-    app.register_blueprint(dehu_sync_bp)
-    print("✅ Rutas de DEHú Sync registradas")
+    # dehu_sync_bp ya se registra al final de este archivo (línea ~8283)
+    print("✅ Rutas de DEHú Sync (vía SyncManager) habilitadas")
     
     # Registrar rutas de Desktop App (Conecta)
     from routes_desktop_app import desktop_app_bp
